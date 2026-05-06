@@ -1,0 +1,28 @@
+---
+import { render, type CollectionEntry } from "astro:content";
+
+interface Props {
+  item: CollectionEntry<"faq">;
+}
+
+const { item } = Astro.props;
+const { Content } = await render(item);
+---
+
+<details class="group rounded-card bg-white px-6 py-4 ring-1 ring-primary-100 open:ring-primary-300 transition">
+  <summary class="flex cursor-pointer items-center justify-between gap-4 list-none">
+    <span class="font-display text-lg font-semibold text-ink-900">{item.data.question}</span>
+    <span
+      aria-hidden="true"
+      class="shrink-0 rounded-full bg-primary-100 p-2 text-primary-600 transition-transform group-open:rotate-45"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="5" x2="12" y2="19" />
+        <line x1="5" y1="12" x2="19" y2="12" />
+      </svg>
+    </span>
+  </summary>
+  <div class="prose prose-sm max-w-none pt-3 text-ink-700">
+    <Content />
+  </div>
+</details>

@@ -1,0 +1,119 @@
+---
+import { render, type CollectionEntry } from "astro:content";
+
+interface Props {
+  castle: CollectionEntry<"castles">;
+}
+
+const { castle } = Astro.props;
+const {
+  name,
+  slug,
+  dimensionsLabel,
+  capacityLabel,
+  ageLabel,
+  priceLabel,
+  powerLabel,
+  transportLabel,
+  photos,
+} = castle.data;
+const { Content } = await render(castle);
+---
+
+<article class="rounded-card overflow-hidden bg-white shadow-md ring-1 ring-primary-100 flex flex-col">
+  <button
+    type="button"
+    class="group relative aspect-[4/3] w-full overflow-hidden bg-primary-50 cursor-zoom-in"
+    data-lightbox-trigger
+    data-gallery={slug}
+    data-index="0"
+    data-src={photos[0]}
+    data-alt={name}
+    aria-label={`Otevřít galerii: ${name}`}
+  >
+    <img
+      src={photos[0]}
+      alt={name}
+      width="800"
+      height="600"
+      class="h-full w-full object-cover transition group-hover:scale-105"
+      loading="lazy"
+      decoding="async"
+    />
+    <span
+      aria-hidden="true"
+      class="absolute bottom-3 right-3 flex items-center gap-1 rounded-full bg-ink-900/80 px-3 py-1 text-xs font-medium text-white"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8" />
+        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+        <line x1="11" y1="8" x2="11" y2="14" />
+        <line x1="8" y1="11" x2="14" y2="11" />
+      </svg>
+      {photos.length} {photos.length === 1 ? "fotka" : photos.length < 5 ? "fotky" : "fotek"}
+    </span>
+  </button>
+
+  {photos.length > 1 && (
+    <div class="flex gap-1.5 overflow-x-auto bg-white p-1.5">
+      {photos.map((src, idx) => (
+        <button
+          type="button"
+          class="group h-20 w-20 shrink-0 lg:h-24 lg:w-24 overflow-hidden rounded-lg ring-1 ring-primary-100 hover:ring-primary-500 transition"
+          data-lightbox-trigger
+          data-gallery={slug}
+          data-index={idx}
+          data-src={src}
+          data-alt={name}
+          aria-label={`Fotka ${idx + 1}`}
+        >
+          <img
+            src={src}
+            alt=""
+            width="240"
+            height="240"
+            class="h-full w-full object-cover transition group-hover:scale-110"
+            loading="lazy"
+            decoding="async"
+          />
+        </button>
+      ))}
+    </div>
+  )}
+
+  <div class="flex flex-1 flex-col gap-4 p-6">
+    <div>
+      <h3 class="font-display text-2xl font-bold text-ink-900">{name}</h3>
+      <p class="mt-1 text-2xl font-display font-bold text-primary-600">{priceLabel}</p>
+    </div>
+
+    <dl class="grid grid-cols-1 gap-2 text-sm text-ink-700">
+      <div class="flex flex-col gap-0.5 border-b border-primary-50 pb-2 sm:flex-row sm:items-baseline sm:justify-between sm:gap-3">
+        <dt class="font-medium text-ink-500">Rozměr</dt>
+        <dd class="font-semibold text-ink-900 sm:text-right">{dimensionsLabel}</dd>
+      </div>
+      <div class="flex flex-col gap-0.5 border-b border-primary-50 pb-2 sm:flex-row sm:items-baseline sm:justify-between sm:gap-3">
+        <dt class="font-medium text-ink-500">Kapacita</dt>
+        <dd class="font-semibold text-ink-900 sm:text-right">{capacityLabel}</dd>
+      </div>
+      {ageLabel && (
+        <div class="flex flex-col gap-0.5 border-b border-primary-50 pb-2 sm:flex-row sm:items-baseline sm:justify-between sm:gap-3">
+          <dt class="font-medium text-ink-500">Věk</dt>
+          <dd class="font-semibold text-ink-900 sm:text-right">{ageLabel}</dd>
+        </div>
+      )}
+      <div class="flex flex-col gap-0.5 border-b border-primary-50 pb-2 sm:flex-row sm:items-baseline sm:justify-between sm:gap-3">
+        <dt class="font-medium text-ink-500">Elektřina</dt>
+        <dd class="font-semibold text-ink-900 sm:text-right">{powerLabel}</dd>
+      </div>
+      <div class="flex flex-col gap-0.5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-3">
+        <dt class="font-medium text-ink-500">Doprava</dt>
+        <dd class="font-semibold text-ink-900 sm:text-right">{transportLabel}</dd>
+      </div>
+    </dl>
+
+    <div class="prose prose-sm max-w-none text-ink-700">
+      <Content />
+    </div>
+  </div>
+</article>

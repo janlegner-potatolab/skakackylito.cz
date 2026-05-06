@@ -1,0 +1,127 @@
+---
+import { site } from "~/data/site";
+const main = site.phones.primary;
+
+const navLinks = [
+  { href: "#atrakce", label: "Atrakce" },
+  { href: "#jak-to-funguje", label: "Jak to funguje" },
+  { href: "#faq", label: "FAQ" },
+  { href: "#kontakt", label: "Kontakt" },
+];
+---
+
+<header class="sticky top-0 z-50 bg-cream/95 backdrop-blur border-b border-primary-100">
+  <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
+    <a
+      href="#top"
+      class="font-display text-xl font-bold text-ink-900 sm:text-2xl"
+    >
+      {site.name}
+    </a>
+
+    <nav class="hidden md:flex items-center gap-8 text-base font-bold text-ink-900">
+      {navLinks.map((l) => (
+        <a href={l.href} class="hover:text-primary-600 transition">{l.label}</a>
+      ))}
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <a
+        href={`tel:${main.raw}`}
+        class="inline-flex items-center gap-2 rounded-full bg-primary-500 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-600 transition"
+      >
+        <span aria-hidden="true">📞</span>
+        <span class="hidden sm:inline">{main.display}</span>
+        <span class="sm:hidden">Volat</span>
+      </a>
+
+      <button
+        id="nav-toggle"
+        type="button"
+        class="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-full ring-1 ring-primary-200 text-ink-900 hover:bg-primary-50 transition"
+        aria-label="Otevřít menu"
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+      >
+        <svg
+          class="nav-toggle__open"
+          xmlns="http://www.w3.org/2000/svg"
+          width="22"
+          height="22"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <line x1="3" y1="6" x2="21" y2="6" />
+          <line x1="3" y1="12" x2="21" y2="12" />
+          <line x1="3" y1="18" x2="21" y2="18" />
+        </svg>
+        <svg
+          class="nav-toggle__close hidden"
+          xmlns="http://www.w3.org/2000/svg"
+          width="22"
+          height="22"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <nav
+    id="mobile-nav"
+    class="md:hidden hidden border-t border-primary-100 bg-white"
+    aria-label="Mobilní navigace"
+  >
+    <ul class="mx-auto flex max-w-6xl flex-col px-4 py-2">
+      {navLinks.map((l) => (
+        <li>
+          <a
+            href={l.href}
+            class="block py-3 text-base font-bold text-ink-900 hover:text-primary-600 transition"
+          >
+            {l.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+</header>
+
+<script>
+  const toggle = document.getElementById("nav-toggle");
+  const nav = document.getElementById("mobile-nav");
+
+  if (toggle && nav) {
+    const openIcon = toggle.querySelector(".nav-toggle__open");
+    const closeIcon = toggle.querySelector(".nav-toggle__close");
+
+    const setOpen = (open: boolean) => {
+      nav.classList.toggle("hidden", !open);
+      toggle.setAttribute("aria-expanded", String(open));
+      toggle.setAttribute("aria-label", open ? "Zavřít menu" : "Otevřít menu");
+      openIcon?.classList.toggle("hidden", open);
+      closeIcon?.classList.toggle("hidden", !open);
+    };
+
+    toggle.addEventListener("click", () => {
+      setOpen(nav.classList.contains("hidden"));
+    });
+
+    nav.querySelectorAll<HTMLAnchorElement>("a").forEach((a) =>
+      a.addEventListener("click", () => setOpen(false)),
+    );
+  }
+</script>

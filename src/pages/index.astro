@@ -1,0 +1,114 @@
+---
+import { getCollection } from "astro:content";
+import { site } from "~/data/site";
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import Header from "~/components/Header.astro";
+import Hero from "~/components/Hero.astro";
+import CastleCard from "~/components/CastleCard.astro";
+import HowItWorks from "~/components/HowItWorks.astro";
+import FAQ from "~/components/FAQ.astro";
+import Contact from "~/components/Contact.astro";
+import Footer from "~/components/Footer.astro";
+import Lightbox from "~/components/Lightbox.astro";
+
+const castles = (await getCollection("castles")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+const faqEntries = (await getCollection("faq")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+
+const stripMarkdown = (s: string) =>
+  s
+    .replace(/\*\*([^*]+)\*\*/g, "$1")
+    .replace(/\*([^*]+)\*/g, "$1")
+    .replace(/\s+/g, " ")
+    .trim();
+
+const parsePrice = (label: string): number =>
+  Number(label.replace(/\s/g, "").replace(/Kč.*/, "")) || 0;
+
+const productJsonLd = castles.map((castle) => ({
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "@id": `${site.url}/#${castle.data.slug}`,
+  name: castle.data.name,
+  description: stripMarkdown(castle.body ?? ""),
+  image: castle.data.photos.map((p) => new URL(p, site.url).toString()),
+  brand: { "@type": "Brand", name: site.name },
+  category: "Pronájem skákacích hradů",
+  offers: {
+    "@type": "Offer",
+    price: parsePrice(castle.data.priceLabel),
+    priceCurrency: "CZK",
+    availability: "https://schema.org/InStock",
+    areaServed: site.serviceArea,
+    url: `${site.url}/#atrakce`,
+    seller: { "@id": `${site.url}/#business` },
+  },
+}));
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqEntries.map((entry) => ({
+    "@type": "Question",
+    name: entry.data.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: stripMarkdown(entry.body ?? ""),
+    },
+  })),
+};
+---
+
+<BaseLayout>
+  <Fragment slot="head">
+    {productJsonLd.map((p) => (
+      <script is:inline type="application/ld+json" set:html={JSON.stringify(p)} />
+    ))}
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />
+  </Fragment>
+
+  <Header />
+  <main>
+    <Hero />
+
+    <section id="atrakce" class="bg-cream py-16 md:py-24">
+      <div class="mx-auto max-w-6xl px-4">
+        <header class="mx-auto mb-10 max-w-2xl text-center">
+          <p class="mb-2 text-sm font-semibold uppercase tracking-wide text-primary-600">
+            Naše atrakce
+          </p>
+          <h2 class="font-display text-3xl font-bold text-ink-900 md:text-4xl">
+            Skákací hrady k pronájmu
+          </h2>
+          <p class="mt-3 text-ink-700">
+            Aktuálně nabízíme {castles.length}{" "}
+            {castles.length === 1 ? "atrakci" : castles.length < 5 ? "atrakce" : "atrakcí"}.
+            Cena zahrnuje dovoz do 20 km, stavbu, kotvení i pojištění odpovědnosti.
+          </p>
+        </header>
+
+        <div class="mx-auto mb-10 flex max-w-3xl flex-wrap items-center justify-center gap-3 text-sm">
+          <span class="rounded-full bg-accent-300 px-4 py-1.5 font-semibold text-ink-900">
+            {site.weekendPackage}
+          </span>
+          <span class="rounded-full bg-white px-4 py-1.5 font-semibold text-ink-700 ring-1 ring-primary-100">
+            Norma {site.certification}
+          </span>
+        </div>
+
+        <div class="grid gap-8 md:grid-cols-2">
+          {castles.map((castle) => <CastleCard castle={castle} />)}
+        </div>
+      </div>
+    </section>
+
+    <HowItWorks />
+    <FAQ />
+    <Contact />
+  </main>
+  <Footer />
+  <Lightbox />
+</BaseLayout>
