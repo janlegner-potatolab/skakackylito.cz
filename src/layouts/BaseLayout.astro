@@ -93,6 +93,22 @@ const localBusinessJsonLd = {
 
     <script is:inline type="application/ld+json" set:html={JSON.stringify(localBusinessJsonLd)} />
 
+    {site.analytics.gaId && (
+      <>
+        <script
+          is:inline
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=${site.analytics.gaId}`}
+        />
+        <script is:inline define:vars={{ gaId: site.analytics.gaId }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', gaId);
+        </script>
+      </>
+    )}
+
     <slot name="head" />
   </head>
   <body>

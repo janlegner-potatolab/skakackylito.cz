@@ -36,6 +36,9 @@ export const site = {
     latitude: 50.5343,
     longitude: 14.131,
   },
+  analytics: {
+    gaId: "G-V37HECS5Z5",
+  },
   seo: {
     title: "Skákačky Lito · Pronájem skákacích hradů Litoměřice",
     description:
