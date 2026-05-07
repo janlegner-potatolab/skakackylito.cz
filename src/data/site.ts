@@ -26,8 +26,8 @@ export const site = {
     instagramHandle: "@skakackylito",
   },
   legal: {
-    owner: "Doplnit",
-    ico: "Doplnit",
+    owner: "Michaela Ježková",
+    ico: "00991619",
     dic: null as string | null,
   },
   certification: "EN 14960",
