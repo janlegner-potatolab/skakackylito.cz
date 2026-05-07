@@ -46,5 +46,5 @@ export const site = {
     ogImageWidth: 1200,
     ogImageHeight: 1200,
   },
-  priceRange: "3 700 Kč – 5 700 Kč",
+  priceRange: "3 500 Kč – 5 200 Kč",
 } as const;

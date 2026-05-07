@@ -9,7 +9,7 @@ dimensionsLabel: "6,6 × 3,3 × 4,5 m (D × Š × V)"
 capacity: 5
 capacityLabel: "max. 5 dětí najednou"
 ageLabel: "Doporučený věk od 3 let"
-priceLabel: "3 700 Kč / den"
+priceLabel: "3 500 Kč / den"
 powerLabel: "230 V — běžná zásuvka v dosahu cca 25 m"
 transportLabel: "Litoměřice + 20 km zdarma · nad 20 km 15 Kč/km"
 photos:

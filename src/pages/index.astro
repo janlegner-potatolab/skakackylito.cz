@@ -102,6 +102,27 @@ const faqJsonLd = {
         <div class="grid gap-8 md:grid-cols-2">
           {castles.map((castle) => <CastleCard castle={castle} />)}
         </div>
+
+        <aside class="mx-auto mt-10 max-w-4xl rounded-card bg-white p-6 ring-1 ring-primary-100 shadow-sm sm:p-8">
+          <div class="flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <h3 class="font-display text-2xl font-bold text-ink-900">
+                Pořádáte veřejnou akci?
+              </h3>
+              <p class="mt-2 text-ink-700">
+                Pro <strong>veřejné akce</strong>, <strong>městské oslavy</strong>,
+                <strong>školní programy</strong> a větší jednorázové pronájmy domluvíme
+                cenu individuálně podle rozsahu. Stačí zavolat — rádi vše probereme.
+              </p>
+            </div>
+            <a
+              href={`tel:${site.phones.primary.raw}`}
+              class="inline-flex shrink-0 items-center gap-2 rounded-full bg-primary-500 px-6 py-3 text-base font-bold text-white shadow-sm hover:bg-primary-600 transition"
+            >
+              📞 {site.phones.primary.display}
+            </a>
+          </div>
+        </aside>
       </div>
     </section>
 
