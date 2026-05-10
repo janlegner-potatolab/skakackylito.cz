@@ -16,7 +16,7 @@ export const site = {
       label: "Rezervace",
     },
   },
-  email: "skakackylito@seznam.cz",
+  email: "info@skakackylito.cz",
   city: "Litoměřice",
   serviceArea: "Litoměřice a okolí",
   hours: "Všední dny i víkendy",
