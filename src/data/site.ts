@@ -3,7 +3,7 @@ export const site = {
   tagline: "Pronájem skákacích hradů z Litoměřic",
   url: "https://skakackylito.cz",
   description:
-    "Zábava pro děti na každou akci. Přivezeme, postavíme a po akci odvezeme — vy si jen užíváte.",
+    "Půjčovna skákacích hradů a nafukovacích atrakcí pro dětské oslavy, školky, firemní akce i obecní slavnosti — Litoměřice, Lovosice, Roudnice nad Labem a okolí. Přivezeme, postavíme a po akci odvezeme.",
   phones: {
     primary: {
       raw: "+420725866028",
@@ -18,7 +18,7 @@ export const site = {
   },
   email: "info@skakackylito.cz",
   city: "Litoměřice",
-  serviceArea: "Litoměřice a okolí",
+  serviceArea: "Litoměřice, Lovosice, Roudnice nad Labem, Ústí nad Labem a okolí",
   hours: "Všední dny i víkendy",
   socials: {
     facebook: null as string | null,
@@ -42,9 +42,7 @@ export const site = {
   seo: {
     title: "Skákačky Lito · Pronájem skákacích hradů Litoměřice",
     description:
-      "Pronájem skákacích hradů v Litoměřicích a okolí. Skluzavka Rytíř a Mořský svět. Doprava, stavba i pojištění odpovědnosti v ceně. Norma EN 14960.",
-    keywords:
-      "pronájem skákacích hradů, Litoměřice, skákací hrad, půjčovna atrakcí, zábava pro děti, narozeniny, dětský den, oslava, Skákačky Lito",
+      "Pronájem a půjčovna skákacích hradů a nafukovacích atrakcí v Litoměřicích, Lovosicích, Roudnici nad Labem a okolí. Cena včetně dopravy, stavby a pojištění odpovědnosti. Norma EN 14960.",
     ogImage: "/photos/logo.png",
     ogImageWidth: 1200,
     ogImageHeight: 1200,
