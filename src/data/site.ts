@@ -43,9 +43,9 @@ export const site = {
     title: "Skákačky Lito · Pronájem skákacích hradů Litoměřice",
     description:
       "Pronájem a půjčovna skákacích hradů a nafukovacích atrakcí v Litoměřicích, Lovosicích, Roudnici nad Labem a okolí. Cena včetně dopravy, stavby a pojištění odpovědnosti. Norma EN 14960.",
-    ogImage: "/photos/logo.png",
+    ogImage: "/photos/og-image.jpg",
     ogImageWidth: 1200,
-    ogImageHeight: 1200,
+    ogImageHeight: 630,
   },
   priceRange: "3 500 Kč – 5 200 Kč",
 } as const;

@@ -14,6 +14,7 @@ const {
 
 const canonical = new URL(Astro.url.pathname, site.url).toString();
 const ogImageUrl = new URL(site.seo.ogImage, site.url).toString();
+const logoUrl = new URL("/icon-512.png", site.url).toString();
 
 const localBusinessJsonLd = {
   "@context": "https://schema.org",
@@ -23,7 +24,7 @@ const localBusinessJsonLd = {
   alternateName: "Skákačky Lito Litoměřice",
   url: site.url,
   image: ogImageUrl,
-  logo: ogImageUrl,
+  logo: logoUrl,
   description: site.description,
   telephone: [site.phones.primary.raw, site.phones.secondary.raw],
   email: site.email,
@@ -56,7 +57,9 @@ const localBusinessJsonLd = {
 
     <meta name="seznam-wmt" content="qIo0aBKOetxqE8OzpAEZtA6qZJYUZBvi" />
 
-    <link rel="icon" type="image/png" href="/photos/logo.png" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
     <link rel="canonical" href={canonical} />
 
     <title>{title}</title>
